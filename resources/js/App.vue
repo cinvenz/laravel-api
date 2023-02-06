@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Io vengo da App</h1>
+        <h1>Home</h1>
         <ol>
             <li v-for="post in arrPosts" :key="post.id">{{ post.title }}</li>
         </ol>
