@@ -36,7 +36,7 @@
                 <label for="category_id" class="form-label">Categoria</label>
                 <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" @if ($category->id == old('category_id')) selected @endif>{{ $category->name }}</option>
                     @endforeach
                 </select>
                 <div class="invalid-feedback">
@@ -48,6 +48,30 @@
                         </ul>
                     @enderror
                 </div>
+            </div>
+
+            <div class="col-12">
+                <h2>Tags</h2>
+                @foreach ($tags as $tag)
+                    <div class="form-check">
+                        <input
+                            id="tag-{{ $tag->id }}"
+                            class="form-check-input"
+                            type="checkbox"
+                            value="{{ $tag->id }}"
+                            name="tags[]"
+                            @if (in_array($tag->id, old('tags', []))) checked @endif
+                        >
+                        <label class="form-check-label" for="tag-{{ $tag->id }}">
+                            {{ $tag->name }}
+                        </label>
+                    </div>
+                @endforeach
+                @if ($errors->has('tags') || $errors->has('tags.*'))
+                    <div>
+                        Ci sono problemi con i tags
+                    </div>
+                @endif
             </div>
 
             <div class="mb-3">
@@ -94,7 +118,7 @@
 
             <div class="mb-3">
                 <label for="excerpt" class="form-label">Excerpt</label>
-                <textarea class="form-control @error('excerpt') is-invalid @enderror" id="excerpt" name="excerpt">{{ old('excerpt') }}"</textarea>
+                <textarea class="form-control @error('excerpt') is-invalid @enderror" id="excerpt" name="excerpt">{{ old('excerpt') }}</textarea>
                 <div class="invalid-feedback">
                     @error('excerpt')
                         <ul>

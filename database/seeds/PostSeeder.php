@@ -8,7 +8,6 @@ use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
-
 class PostSeeder extends Seeder
 {
     /**
@@ -22,7 +21,7 @@ class PostSeeder extends Seeder
         $tags = Tag::all()->pluck('id');
         $tagCount = count($tags);
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $title = $faker->words(rand(3, 7), true);
 
             $number = rand(0, 276);
@@ -38,7 +37,7 @@ class PostSeeder extends Seeder
                 'category_id'   => $faker->randomElement($categories)->id,
                 'slug'          => Post::getSlug($title),
                 'title'         => $title,
-                'image'         => 'https://picsum.photos/id/' . rand(0, 1000) . '/500/400',
+                'image'         => 'https://picsum.photos/id/'. rand(0, 1000) .'/500/400',
                 'uploaded_img'  => $img_path,
                 'content'       => $faker->paragraphs(rand(1, 10), true),
                 'excerpt'       => $faker->paragraph(),

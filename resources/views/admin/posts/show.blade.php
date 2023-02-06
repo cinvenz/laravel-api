@@ -2,21 +2,25 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-uppercase">{{ $post->title }}</h1>
-        @if (isset($post->category->name))
-            <h2>Nella categoria: {{ $post->category->name }}</h2>
+        <h1>{{ $post->title }}</h1>
+        @if ($post->category)
+            <h2>
+                Nella categoria: <a href="{{ route('admin.categories.show', ['category' => $post->category]) }}">{{ $post->category->name }}</a>
+            </h2>
         @endif
+
         @if ($post->tags->all())
-            <h2 class="d-inline me-1">Tags: </h2>
-            @foreach ($post->tags as $tag)
-                {{ $tag->name }}{{ $loop->last ? '' : ', ' }}
-            @endforeach
+            <div>
+                @foreach ($post->tags as $tag)
+                    <a href="{{ route('admin.tags.show', ['tag' => $tag]) }}">{{ $tag->name }}</a>{{ $loop->last ? '' : ', ' }}
+                @endforeach
+            </div>
         @endif
 
         {{-- <img src="{{ $post->image }}" alt="{{ $post->title }}"> --}}
-        <img class="d-block mt-4" src="{{ asset('storage/' . $post->uploaded_img) }}" alt="{{ $post->title }}">
-        <p class="mt-5">
+        <div class="clearfix">
+            <img class="float-start" src="{{ asset('storage/' . $post->uploaded_img) }}" alt="{{ $post->title }}">
             {{ $post->content }}
-        </p>
+        </div>
     </div>
 @endsection

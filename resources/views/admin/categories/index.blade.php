@@ -26,7 +26,7 @@
                         <td>{{ $category->slug }}</td>
                         <td>{{ $category->name }}</td>
 
-                        <td class="d-flex gap-3">
+                        <td>
                             <a href="{{ route('admin.categories.show', ['category' => $category]) }}" class="btn btn-primary">Visita</a>
                             <a href="{{ route('admin.categories.edit', ['category' => $category]) }}" class="btn btn-warning">Edita</a>
                             <form action="{{ route('admin.categories.destroy', ['category' => $category]) }}" method="post">
